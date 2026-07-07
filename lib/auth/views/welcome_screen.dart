@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_10/auth/views/login_screen.dart';
 import 'package:flutter_application_10/core/constants/app_colors.dart';
 
-import 'package:flutter_application_10/widgets/custom_social_button.dart'; 
+import 'package:flutter_application_10/widgets/custom_social_button.dart';
+import 'package:flutter_application_10/widgets/spotify_header.dart'; 
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -20,26 +21,9 @@ class WelcomeScreen extends StatelessWidget {
             children: [
               const Spacer(),
               
-            
-              Image.asset(
-                'assets/images/white_spofity.png',
-                height: 90,
-                width: 90,
-              ),
-              const SizedBox(height: 30),
+              const SpotifyHeader(),
               
-              
-              const Text(
-                'Millions of songs\nFree on Spotify.',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: -0.5,
-                ),
-              ),
-              const SizedBox(height: 40),
+             const SizedBox(height: 40),
 
              
               SizedBox(

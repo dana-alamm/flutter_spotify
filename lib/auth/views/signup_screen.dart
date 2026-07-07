@@ -1,27 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_10/auth/views/signup_screen.dart';
 import 'package:flutter_application_10/core/constants/app_colors.dart';
-import 'package:flutter_application_10/widgets/custom_social_button.dart';
 import 'package:flutter_application_10/widgets/spotify_header.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+class SignupScreen extends StatelessWidget {
+  const SignupScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
-      body:SafeArea(
-        child:Padding(
+      body: SafeArea(
+        child: Padding(
           padding: const EdgeInsets.symmetric(horizontal:24.0,vertical: 30.0 ),
-          child:Column(
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const Spacer(),
               const SpotifyHeader(),
-             
-              const SizedBox(height: 30,),
+                const SizedBox(height: 30,),
               SizedBox(
                 width: double.infinity,
                 height: 44,
@@ -95,7 +92,7 @@ class LoginScreen extends StatelessWidget {
                   ) ,)),
               ),
               SizedBox(height:30),
-             SizedBox(
+                SizedBox(
               width: double.infinity,
               height: 52,
               child: ElevatedButton(
@@ -105,7 +102,7 @@ class LoginScreen extends StatelessWidget {
                   elevation: 0,
                 ),
                 onPressed: (){}, 
-                child: Text('Log in',style: TextStyle(
+                child: Text('Sign Up',style: TextStyle(
                   fontFamily: 'Poppins',
                     color: AppColors.background,
                       fontWeight: FontWeight.w700,
@@ -114,29 +111,9 @@ class LoginScreen extends StatelessWidget {
                       letterSpacing: -0.63,
                 ),)),
              ),
-             SizedBox(height: 70,),
-             TextButton(
-              onPressed: (){
-                Navigator.of(context).pushReplacement((
-                  MaterialPageRoute(
-                    builder: (context) => const SignupScreen(),)));
-              },
-               child: const Text(
-                'Sign Up.',
-                style: TextStyle(
-                  fontFamily: 'Poppins',
-                  color:Colors.white,
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: -0.3,
-                  fontSize: 21,
-
-                ),
-               ),
-               ),
-               const Spacer(),
+             const Spacer(),
             ],
-          )
-          ) )
+          ),)),
     );
   }
 }
