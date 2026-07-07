@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter_application_10/auth/views/login_screen.dart';
+import 'package:flutter_application_10/auth/views/welcome_screen.dart';
 
 import 'package:flutter_application_10/core/constants/app_colors.dart';
 import 'dart:async';
@@ -22,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Timer(const Duration(seconds: 3),(){
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-          builder: (context)=>const LoginScreen(),
+          builder: (context)=>const WelcomeScreen(),
           ),
       );
     });
