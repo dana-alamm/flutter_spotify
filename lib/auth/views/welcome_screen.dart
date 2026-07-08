@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_10/auth/views/login_screen.dart';
+import 'package:flutter_application_10/auth/views/signup_screen.dart';
 import 'package:flutter_application_10/core/constants/app_colors.dart';
 
 import 'package:flutter_application_10/widgets/custom_social_button.dart';
@@ -35,7 +36,9 @@ class WelcomeScreen extends StatelessWidget {
                     shape: const StadiumBorder(),
                     elevation: 0,
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context)=>SignupScreen()));
+                  },
                   child: const Text(
                     'Sign up free',
                     style: TextStyle(
@@ -78,7 +81,7 @@ class WelcomeScreen extends StatelessWidget {
            
               TextButton(
                 onPressed: () {
-                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => const LoginScreen(),)
                     );
                 },

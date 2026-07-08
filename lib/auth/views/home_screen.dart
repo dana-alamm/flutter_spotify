@@ -1,8 +1,9 @@
-import 'dart:ui';
+//import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_10/core/constants/app_colors.dart';
 import 'package:flutter_application_10/widgets/album_horizontal_list.dart';
+import 'package:flutter_application_10/widgets/custom_bottom_nav_bar.dart';
 import 'package:flutter_application_10/widgets/home_section_title.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -200,57 +201,64 @@ class _HomeScreenState extends State<HomeScreen> {
         //     ),
         //   ),
         // ),
-        bottomNavigationBar: Container(
+      //   bottomNavigationBar: Container(
         
-        height: 95, 
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,    
-            end: Alignment.bottomCenter,  
-            colors: [
-              Colors.transparent,                  
-              Colors.black.withOpacity(0.6),     
-              const Color(0xFF121212),            
-            ],
-            stops: const [0.0, 0.4, 1.0], 
-          ),
-        ),
-        child: Theme(
-          data: Theme.of(context).copyWith(
-            splashColor: Colors.transparent,     
-            highlightColor: Colors.transparent,  
-            canvasColor: Colors.transparent, 
-          ),
-          child: BottomNavigationBar(
-            currentIndex: _selectedIndex,
-            onTap: (index) {
-              setState(() {
-                _selectedIndex = index;
-              });
-            },
-            elevation: 0, 
-            backgroundColor: Colors.transparent, 
-            type: BottomNavigationBarType.fixed,
-            selectedItemColor: Colors.white,
-            unselectedItemColor: Colors.grey,
-            selectedFontSize: 11,
-            unselectedFontSize: 11,
-            items: [
-              const BottomNavigationBarItem(icon: Icon(Icons.home_filled), label: 'Home'),
-              const BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
-              const BottomNavigationBarItem(icon: Icon(Icons.library_music_outlined), label: 'Your Library'),
-              BottomNavigationBarItem(
-                icon: Image.asset(
-                  'assets/images/prenium.png',
-                  width: 22,
-                  height: 22,
-                ),
-                label: 'Premium',
-              )
-            ],
-          ),
-        ),
-      ),
+      //   height: 95, 
+      //   decoration: BoxDecoration(
+      //     gradient: LinearGradient(
+      //       begin: Alignment.topCenter,    
+      //       end: Alignment.bottomCenter,  
+      //       colors: [
+      //         Colors.transparent,                  
+      //         Colors.black.withOpacity(0.6),     
+      //         const Color(0xFF121212),            
+      //       ],
+      //       stops: const [0.0, 0.4, 1.0], 
+      //     ),
+      //   ),
+      //   child: Theme(
+      //     data: Theme.of(context).copyWith(
+      //       splashColor: Colors.transparent,     
+      //       highlightColor: Colors.transparent,  
+      //       canvasColor: Colors.transparent, 
+      //     ),
+      //     child: BottomNavigationBar(
+      //       currentIndex: _selectedIndex,
+      //       onTap: (index) {
+      //         setState(() {
+      //           _selectedIndex = index;
+      //         });
+      //       },
+      //       elevation: 0, 
+      //       backgroundColor: Colors.transparent, 
+      //       type: BottomNavigationBarType.fixed,
+      //       selectedItemColor: Colors.white,
+      //       unselectedItemColor: Colors.grey,
+      //       selectedFontSize: 11,
+      //       unselectedFontSize: 11,
+      //       items: [
+      //         const BottomNavigationBarItem(icon: Icon(Icons.home_filled), label: 'Home'),
+      //         const BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
+      //         const BottomNavigationBarItem(icon: Icon(Icons.library_music_outlined), label: 'Your Library'),
+      //         BottomNavigationBarItem(
+      //           icon: Image.asset(
+      //             'assets/images/prenium.png',
+      //             width: 22,
+      //             height: 22,
+      //           ),
+      //           label: 'Premium',
+      //         )
+      //       ],
+      //     ),
+      //   ),
+      // ),
+      bottomNavigationBar:customBottonNavBar(
+        currentIndex: _selectedIndex, 
+        onTap: (index){
+          setState(() {
+            _selectedIndex=index;
+          });
+        })
     );
     
   }

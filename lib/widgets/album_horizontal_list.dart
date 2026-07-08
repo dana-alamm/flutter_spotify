@@ -35,7 +35,7 @@ class AlbumHorizontalList extends StatelessWidget {
               children: [
                 ClipRRect(
                  // borderRadius: BorderRadius.circular(4),
-                  child:Container(
+                  child:SizedBox(
                     width: 174,
                     height: 176,
                    child: Image.asset(
