@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_10/auth/views/home_screen.dart';
 import 'package:flutter_application_10/auth/views/signup_screen.dart';
 import 'package:flutter_application_10/core/constants/app_colors.dart';
 import 'package:flutter_application_10/widgets/custom_social_button.dart';
@@ -104,7 +105,9 @@ class LoginScreen extends StatelessWidget {
                   shape: const StadiumBorder(),
                   elevation: 0,
                 ),
-                onPressed: (){}, 
+                onPressed: (){
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>HomeScreen()));
+                }, 
                 child: Text('Log in',style: TextStyle(
                   fontFamily: 'Poppins',
                     color: AppColors.background,

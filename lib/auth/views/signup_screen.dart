@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_10/auth/views/home_screen.dart';
 import 'package:flutter_application_10/core/constants/app_colors.dart';
 import 'package:flutter_application_10/widgets/spotify_header.dart';
 
@@ -101,7 +102,9 @@ class SignupScreen extends StatelessWidget {
                   shape: const StadiumBorder(),
                   elevation: 0,
                 ),
-                onPressed: (){}, 
+                onPressed: (){
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>HomeScreen()));
+                }, 
                 child: Text('Sign Up',style: TextStyle(
                   fontFamily: 'Poppins',
                     color: AppColors.background,
