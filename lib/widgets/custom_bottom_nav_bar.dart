@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_10/auth/views/playlist_screen.dart';
 import 'package:flutter_application_10/auth/views/search_screen.dart';
 
 class customBottonNavBar extends StatelessWidget {
@@ -46,7 +47,7 @@ class customBottonNavBar extends StatelessWidget {
                 Navigator.push(context, MaterialPageRoute(builder: (context)=>SearchScreen()));
               }
               else if(index==2){
-
+               Navigator.push(context, MaterialPageRoute(builder: (context)=>PlaylistScreen()));
               }
               else if(index==3){
 
