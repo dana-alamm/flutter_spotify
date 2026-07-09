@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_10/auth/views/music_player_screen.dart';
 
 class AlbumHorizontalList extends StatelessWidget {
   final List<String>images;
@@ -25,7 +26,12 @@ class AlbumHorizontalList extends StatelessWidget {
         itemBuilder: (context,index){
           return GestureDetector(
            onTap: () {
-             
+             Navigator.push(context, MaterialPageRoute(
+              builder: (context)=>MusicPlayerScreen(
+                title: titles[index],
+                
+                 singer: subtitles.isNotEmpty?subtitles[index]:'unknown singer',
+                 image: images[index])));
            },
            child: Container(
             width: 174,
