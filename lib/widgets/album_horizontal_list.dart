@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_10/auth/views/music_player_screen.dart';
+import 'package:flutter_application_10/screens/music_player_screen.dart';
 
 class AlbumHorizontalList extends StatelessWidget {
   final List<String>images;

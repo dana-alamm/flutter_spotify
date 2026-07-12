@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_10/auth/views/login_screen.dart';
-import 'package:flutter_application_10/auth/views/signup_screen.dart';
+import 'package:flutter_application_10/screens/login_screen.dart';
+import 'package:flutter_application_10/screens/signup_screen.dart';
 import 'package:flutter_application_10/core/constants/app_colors.dart';
 
 import 'package:flutter_application_10/widgets/custom_social_button.dart';
