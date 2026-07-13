@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_10/screens/home_screen.dart';
 import 'package:flutter_application_10/screens/signup_screen.dart';
@@ -17,21 +18,70 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _usernameController=TextEditingController();
   final TextEditingController _passwordController=TextEditingController();
   bool _isLoading=false;
+  bool _isobscure=true;
 
-  void _handleLogin() async{
+  // void _handleLogin() async{
+  //   if(_formkey.currentState!.validate()){
+  //     setState(() {
+  //       _isLoading=true;
+  //     });
+  //     await Future.delayed(const Duration(seconds: 2));
+  //     if(mounted){
+  //       setState(() {
+  //         _isLoading=false;
+  //       });
+      
+  //     Navigator.of(context).pushReplacement(
+  //       MaterialPageRoute(builder: (context)=>HomeScreen()),
+  //     );
+  //     }
+  //   }
+  // }
+
+  void _handleLogin()async{
     if(_formkey.currentState!.validate()){
       setState(() {
         _isLoading=true;
       });
-      await Future.delayed(const Duration(seconds: 2));
-      if(mounted){
-        setState(() {
-          _isLoading=false;
-        });
-      
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context)=>HomeScreen()),
-      );
+      try {
+        UserCredential userCredential=await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: _usernameController.text.trim(), 
+          password: _passwordController.text.trim(),
+          );
+          if(mounted){
+            setState(() {
+              _isLoading=false;
+            });
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (context) => HomeScreen(),)
+            );
+          }
+      } on FirebaseAuthException catch(e){
+        if(mounted){
+          setState(() {
+            _isLoading=false;
+          });
+          String errorMessage = 'An error occurred. Please try again.';
+        if (e.code == 'user-not-found') {
+          errorMessage = 'No user found for that email. Sign up instead! 😉';
+        } else if (e.code == 'wrong-password') {
+          errorMessage = 'Wrong password provided. Please try again.';
+        } else if (e.code == 'invalid-email') {
+          errorMessage = 'The email address is badly formatted.';
+        }
+        ScaffoldMessenger.of(context).hideCurrentSnackBar();
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(errorMessage,style: const TextStyle(color: Colors.white)),
+            backgroundColor: Colors.redAccent,
+            behavior: SnackBarBehavior.floating,
+            ),
+        );
+        }
+      }catch(e){
+        if (mounted) {
+        setState(() { _isLoading = false; });
+      }
       }
     }
   }
@@ -97,7 +147,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 
                   TextFormField(
                     controller: _passwordController,
-                    obscureText: true,
+                    obscureText: _isobscure,
                     style: TextStyle(color:Colors.black,
                     fontSize: 14,
                     letterSpacing: -0.15
@@ -113,20 +163,29 @@ class _LoginScreenState extends State<LoginScreen> {
                         borderRadius: BorderRadius.circular(5),
                         borderSide: const BorderSide(color:Colors.grey,width: 0.5),
                       ),
-                    
+                      suffixIcon: GestureDetector(
+                      child: Icon(_isobscure?Icons.visibility_off_outlined : Icons.visibility_outlined,
+                      color:Colors.grey[600],
+                      ),
+                    onTap: () {
+                    setState(() {
+                      _isobscure=!_isobscure;
+                    });
+                    }, 
+                    ),
                     ),
                     validator: (value) {
                       if(value==null||value.isEmpty){
                         return "please enter your password";
                       }
-                      if(value.length<8){
-                        return "Password must be at least 8 characters";
-                      }
-                      final RegExp passwordRegex=RegExp(r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$');
+                      // if(value.length<8){
+                      //   return "Password must be at least 8 characters";
+                      // }
+                      //final RegExp passwordRegex=RegExp(r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$');
 
-                      if(!passwordRegex.hasMatch(value)){
-                        return 'Must include letters, numbers, and special characters (e.g. @, #, !)';
-                      }
+                      // if(!passwordRegex.hasMatch(value)){
+                      //   return 'Must include letters, numbers, and special characters (e.g. @, #, !)';
+                      // }
                       return null;
                     },
                     
@@ -171,7 +230,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   width: 24,
                   child:CircularProgressIndicator(
                     strokeWidth: 2.5,
-                    color:AppColors.primaryGreen,
+                    color:AppColors.background,
                   ),
                  )
                   : Text('Log in',style: TextStyle(

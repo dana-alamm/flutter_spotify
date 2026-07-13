@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_10/core/constants/app_colors.dart';
 
-class MusicPlayerScreen extends StatelessWidget {
+class MusicPlayerScreen extends StatefulWidget {
   final String title;
   final String singer;
   final String image;
@@ -14,6 +14,11 @@ class MusicPlayerScreen extends StatelessWidget {
     required this.image,
   });
 
+  @override
+  State<MusicPlayerScreen> createState() => _MusicPlayerScreenState();
+}
+
+class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,7 +66,7 @@ class MusicPlayerScreen extends StatelessWidget {
                           ),
                           const SizedBox(height: 2),
                           Text(
-                            '"$title" in Songs',
+                            '"${widget.title}" in Songs',
                             style: const TextStyle(
                               fontFamily: 'Poppins',
                               color: Colors.white,
@@ -97,7 +102,7 @@ class MusicPlayerScreen extends StatelessWidget {
                       ),
                     ],
                     image: DecorationImage(
-                      image: AssetImage(image),
+                      image: AssetImage(widget.image),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -118,7 +123,7 @@ class MusicPlayerScreen extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Text(
-                              title,
+                              widget.title,
                               style: const TextStyle(
                                 fontFamily: 'Gotham',
                                 color: Colors.white,
@@ -131,7 +136,7 @@ class MusicPlayerScreen extends StatelessWidget {
                             ),
                             const SizedBox(height: 4),
                             Text(
-                              singer,
+                              widget.singer,
                               style: const TextStyle(
                                 fontFamily: 'Gotham',
                                 color: Color(0xFFA7A7A7),
