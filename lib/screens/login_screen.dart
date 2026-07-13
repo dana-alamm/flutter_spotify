@@ -5,9 +5,42 @@ import 'package:flutter_application_10/core/constants/app_colors.dart';
 //import 'package:flutter_application_10/widgets/custom_social_button.dart';
 import 'package:flutter_application_10/widgets/spotify_header.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  final GlobalKey<FormState>_formkey=GlobalKey<FormState>();
+  final TextEditingController _usernameController=TextEditingController();
+  final TextEditingController _passwordController=TextEditingController();
+  bool _isLoading=false;
+
+  void _handleLogin() async{
+    if(_formkey.currentState!.validate()){
+      setState(() {
+        _isLoading=true;
+      });
+      await Future.delayed(const Duration(seconds: 2));
+      if(mounted){
+        setState(() {
+          _isLoading=false;
+        });
+      
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context)=>HomeScreen()),
+      );
+      }
+    }
+  }
+  @override
+  void dispose(){
+    _usernameController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,129 +48,163 @@ class LoginScreen extends StatelessWidget {
       body:SafeArea(
         child:Padding(
           padding: const EdgeInsets.symmetric(horizontal:24.0,vertical: 30.0 ),
-          child:Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const Spacer(),
-              const SpotifyHeader(),
-             
-              const SizedBox(height: 30,),
-              SizedBox(
-                width: double.infinity,
-                height: 44,
-                child: TextField(
-                  style: TextStyle(color: Colors.black,
-                  fontSize: 14,
-                  letterSpacing: -0.15
+          child:Form(
+            key:_formkey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Spacer(),
+                const SpotifyHeader(),
+               
+                const SizedBox(height: 30,),
+
+                TextFormField(
+                  controller: _usernameController,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 14,
+                    letterSpacing: -0.15,
                   ),
-                  decoration: InputDecoration(
+                
+
+               
+                    decoration: InputDecoration(
+                      
+                      hintText: 'username',
+                      hintStyle: TextStyle(color:Colors.grey[600],fontSize: 14),
+                      fillColor: Colors.white,
+                      filled:true,
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 16,vertical: 0),
+                      errorStyle: const TextStyle(color:Colors.redAccent),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5),
+                        borderSide: const BorderSide(color: Colors.grey, width: 0.5),
+                      ),
+            
+                    ),
+                    validator: (value) {
+                      if(value==null||value.trim().isEmpty){
+                        return'please enter a username';
+                      }
+                      return null;
+                    },
+                  ),
+                  
+                
+                const SizedBox(height: 10,),
+              
+                
+                  TextFormField(
+                    controller: _passwordController,
+                    obscureText: true,
+                    style: TextStyle(color:Colors.black,
+                    fontSize: 14,
+                    letterSpacing: -0.15
+                    ),
+                    decoration: InputDecoration(
+                      hintText: 'password',
+                      hintStyle: TextStyle(color:Colors.grey[600],fontSize: 14),
+                      fillColor: Colors.white,
+                      filled: true,
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 16,vertical: 0),
+                      errorStyle: const TextStyle(color:Colors.redAccent),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5),
+                        borderSide: const BorderSide(color:Colors.grey,width: 0.5),
+                      ),
                     
-                    hintText: 'username',
-                    hintStyle: TextStyle(color:Colors.grey[600],fontSize: 14),
-                    fillColor: Colors.white,
-                    filled:true,
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 16,vertical: 0),
-
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(5),
-                      borderSide: const BorderSide(color: Colors.grey, width: 0.5),
                     ),
+                    validator: (value) {
+                      if(value==null||value.isEmpty){
+                        return "please enter your password";
+                      }
+                      if(value.length<8){
+                        return "Password must be at least 8 characters";
+                      }
+                      final RegExp passwordRegex=RegExp(r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$');
 
+                      if(!passwordRegex.hasMatch(value)){
+                        return 'Must include letters, numbers, and special characters (e.g. @, #, !)';
+                      }
+                      return null;
+                    },
+                    
                   ),
-                ),
+                  
                 
-              ),
-              const SizedBox(height: 10,),
-              SizedBox(
+                SizedBox(height: 20,),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: TextButton(
+                    style:TextButton.styleFrom(
+                      padding: EdgeInsets.zero,
+                      minimumSize: const Size(0,0),
+                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    ),
+                    onPressed: (){}, 
+                    child: Text('Forgot password?',
+                    style:TextStyle(
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.w500,
+                      fontSize: 12,
+                      height: 1.0,
+                      letterSpacing: 0.15,
+                      color: AppColors.primaryGreen,
+                     
+                    ) ,)),
+                ),
+                SizedBox(height:30),
+               SizedBox(
                 width: double.infinity,
-                height: 44,
-                child:TextField(
-                  obscureText: true,
-                  style: TextStyle(color:Colors.black,
-                  fontSize: 14,
-                  letterSpacing: -0.15
+                height: 52,
+                child: ElevatedButton(
+                  style:ElevatedButton.styleFrom(
+                    backgroundColor:AppColors.primaryGreen,
+                    shape: const StadiumBorder(),
+                    elevation: 0,
                   ),
-                  decoration: InputDecoration(
-                    hintText: 'password',
-                    hintStyle: TextStyle(color:Colors.grey[600],fontSize: 14),
-                    fillColor: Colors.white,
-                    filled: true,
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 16,vertical: 0),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(5),
-                      borderSide: const BorderSide(color:Colors.grey,width: 0.5),
-                    ),
-                  
+                 onPressed: _isLoading?null:_handleLogin,
+                 child:_isLoading
+                 ?const SizedBox(
+                  height: 24,
+                  width: 24,
+                  child:CircularProgressIndicator(
+                    strokeWidth: 2.5,
+                    color:AppColors.primaryGreen,
                   ),
-                  
-                ),
-                
-              ),
-              SizedBox(height: 20,),
-              Align(
-                alignment: Alignment.centerRight,
-                child: TextButton(
-                  style:TextButton.styleFrom(
-                    padding: EdgeInsets.zero,
-                    minimumSize: const Size(0,0),
-                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  ),
-                  onPressed: (){}, 
-                  child: Text('Forgot password?',
-                  style:TextStyle(
+                 )
+                  : Text('Log in',style: TextStyle(
                     fontFamily: 'Poppins',
-                    fontWeight: FontWeight.w500,
-                    fontSize: 12,
-                    height: 1.0,
-                    letterSpacing: 0.15,
-                    color: AppColors.primaryGreen,
-                   
-                  ) ,)),
-              ),
-              SizedBox(height:30),
-             SizedBox(
-              width: double.infinity,
-              height: 52,
-              child: ElevatedButton(
-                style:ElevatedButton.styleFrom(
-                  backgroundColor:AppColors.primaryGreen,
-                  shape: const StadiumBorder(),
-                  elevation: 0,
-                ),
+                      color: AppColors.background,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 21,
+                        height: 2.47,
+                        letterSpacing: -0.63,
+                  ),)),
+               ),
+               SizedBox(height: 70,),
+               TextButton(
                 onPressed: (){
-                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>HomeScreen()));
-                }, 
-                child: Text('Log in',style: TextStyle(
-                  fontFamily: 'Poppins',
-                    color: AppColors.background,
-                      fontWeight: FontWeight.w700,
-                      fontSize: 21,
-                      height: 2.47,
-                      letterSpacing: -0.63,
-                ),)),
-             ),
-             SizedBox(height: 70,),
-             TextButton(
-              onPressed: (){
-                Navigator.of(context).pushReplacement((
-                  MaterialPageRoute(
-                    builder: (context) => const SignupScreen(),)));
-              },
-               child: const Text(
-                'Sign Up.',
-                style: TextStyle(
-                  fontFamily: 'Poppins',
-                  color:Colors.white,
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: -0.3,
-                  fontSize: 21,
-
-                ),
-               ),
-               ),
-               const Spacer(),
-            ],
+                  Navigator.of(context).pushReplacement((
+                    MaterialPageRoute(
+                      builder: (context) => const SignupScreen(),)));
+                },
+                 child: const Text(
+                  'Sign Up.',
+                  style: TextStyle(
+                    fontFamily: 'Poppins',
+                    color:Colors.white,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: -0.3,
+                    fontSize: 21,
+            
+                  ),
+                 ),
+                 ),
+                 const Spacer(),
+              ],
+            ),
           )
           ) )
     );
