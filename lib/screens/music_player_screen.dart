@@ -1,5 +1,6 @@
 // 
 import 'package:flutter/material.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter_application_10/core/constants/app_colors.dart';
 import 'package:flutter_application_10/core/models/song_model.dart';
 
@@ -27,7 +28,30 @@ class MusicPlayerScreen extends StatefulWidget {
 class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
   bool _isPlaying=false;
   bool _isFavorite=false;
+  final AudioPlayer _audioPlayer=AudioPlayer();
 
+  @override
+  void initState(){
+    super.initState();
+    _isFavorite=widget.selectedSong.isFavorite;
+    _playAudio();
+  }
+
+void _playAudio()async{
+  try{
+    await _audioPlayer.play(UrlSource(widget.selectedSong.audioURL));
+    setState(() {
+      _isPlaying=true;
+    });
+  }catch(e){
+    print("Error playing audio: $e");
+  }
+}
+@override
+void dispose(){
+  _audioPlayer.dispose();
+  super.dispose();
+}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -111,7 +135,7 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
                       ),
                     ],
                     image: DecorationImage(
-                      image: AssetImage(widget.image),
+                      image: AssetImage(widget.selectedSong.coverUrl),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -132,7 +156,7 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Text(
-                              widget.title,
+                              widget.selectedSong.title,
                               style: const TextStyle(
                                 fontFamily: 'Gotham',
                                 color: Colors.white,
@@ -145,7 +169,7 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
                             ),
                             const SizedBox(height: 4),
                             Text(
-                              widget.singer,
+                              widget.selectedSong.artist,
                               style: const TextStyle(
                                 fontFamily: 'Gotham',
                                 color: Color(0xFFA7A7A7),
@@ -168,6 +192,7 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
                         onPressed: () {
                           setState(() {
                             _isFavorite=!_isFavorite;
+                            widget.selectedSong.isFavorite = _isFavorite;
                           });
                           ScaffoldMessenger.of(context).hideCurrentSnackBar();
                           ScaffoldMessenger.of(context).showSnackBar(
@@ -203,7 +228,7 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
                           thumbColor: Colors.white,
                         ),
                         child: Slider(
-                          value: 0.3,
+                          value: 0.0,
                           onChanged: (value) {},
                         ),
                       ),
@@ -238,9 +263,15 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
                         onPressed: () {},
                       ),
                       GestureDetector(
-                        onTap: () {
+                        onTap: () async{
+                          if(_isPlaying){
+                            await _audioPlayer.pause();
+                            
+                          }else{
+                            await _audioPlayer.play(UrlSource(widget.selectedSong.audioURL));
+                          }
                           setState(() {
-                            _isPlaying=!_isPlaying;
+                            _isPlaying = !_isPlaying;
                           });
                          
                         },

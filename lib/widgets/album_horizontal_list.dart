@@ -7,12 +7,14 @@ class AlbumHorizontalList extends StatelessWidget {
   final List<String>images;
   final List<String>titles;
   final List<String>subtitles;
+  final List<String> audioUrls;
   final bool isDescriptionStyle;
 
   const AlbumHorizontalList({super.key,
   required this.images,
   required this.titles,
   required this.subtitles,
+  required this.audioUrls,
   this.isDescriptionStyle=false
   });
 
@@ -33,11 +35,13 @@ class AlbumHorizontalList extends StatelessWidget {
                 title: titles[index],
               singer: subtitles.isNotEmpty ? subtitles[index] : 'unknown singer',
               image: images[index], 
+
              selectedSong: SongModel(
              title: titles[index],
              artist: subtitles.isNotEmpty ? subtitles[index] : 'unknown singer',
              coverUrl: images[index],
             hasLyrics: true,
+             audioURL: audioUrls[index],
   ),
               ),
              ),

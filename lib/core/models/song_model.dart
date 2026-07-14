@@ -3,6 +3,7 @@ class SongModel {
   final String artist;
   final String coverUrl;
   final bool hasLyrics;
+  final String audioURL;
   bool isFavorite;
   
   SongModel({
@@ -10,6 +11,7 @@ class SongModel {
     required this.artist,
     required this.coverUrl,
     required this.hasLyrics,
+    required this.audioURL,
     this.isFavorite = false,
   });
 }

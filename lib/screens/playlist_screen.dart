@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_10/core/constants/app_colors.dart';
+import 'package:flutter_application_10/core/constants/app_data.dart';
 import 'package:flutter_application_10/core/models/song_model.dart';
 import 'package:flutter_application_10/screens/music_player_screen.dart';
 import 'package:flutter_application_10/widgets/custom_bottom_nav_bar.dart';
@@ -24,19 +25,7 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
     @override
     void initState(){
      super.initState();
-    songsList = [
-  SongModel(title: 'Alone', artist: 'Alan Walker', coverUrl: 'assets/images/alone_poster.jpg', hasLyrics: true),
-  SongModel(title: 'Let me love you', artist: 'Justin Bieber feat DJ Snake', coverUrl: 'assets/images/let_me_love_u.jpg', hasLyrics: true),
-  SongModel(title: 'Ignite', artist: 'Alan Walker', coverUrl: 'assets/images/ignite.jpg', hasLyrics: true),
-  SongModel(title: 'Taki Taki', artist: 'DJ Snake feat Selena Gomez', coverUrl: 'assets/images/taki_taki.jpg', hasLyrics: true),
-  SongModel(title: 'Believer', artist: 'Imagine Dragons', coverUrl: 'assets/images/believer.jpg', hasLyrics: true),
-  SongModel(title: 'Blinding Lights', artist: 'The Weeknd', coverUrl: 'assets/images/Blinding_Lights.png', hasLyrics: true),
-  SongModel(title: 'Shape of You', artist: 'Ed Sheeran', coverUrl: 'assets/images/Shape_Of_You.jpg', hasLyrics: false), // 🌟 مصلحة هنا
-  SongModel(title: 'Stay', artist: 'The Kid LAROI & Justin Bieber', coverUrl: 'assets/images/Stay.jpg', hasLyrics: true),
-  SongModel(title: 'Mockingbird', artist: 'Eminem', coverUrl: 'assets/images/mockingbird.jpg', hasLyrics: true),
-  SongModel(title: 'Another Love', artist: 'Tom Odell', coverUrl: 'assets/images/another_love.jpg', hasLyrics: false), // 🌟 مصلحة هنا
-  SongModel(title: 'Night Changes', artist: 'One Direction', coverUrl: 'assets/images/night_changes.jpg', hasLyrics: true),
-];
+     songsList=globalSongsList;
     }
     return Scaffold(
     backgroundColor: AppColors.background,

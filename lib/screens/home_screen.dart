@@ -94,7 +94,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       
 
                      ], 
-                     subtitles: []
+                     subtitles: [], 
+                     audioUrls: [],
                      ),
                    //  SizedBox(height: 10,),
                       
@@ -118,7 +119,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         'Imagine Dragons',
                         'Katy Perry',
                         'Sia '
-                       ]),
+                       ], 
+                       audioUrls: [
+                         'https://cs1.mp3.pm/download/70605445/QmFaRmwyNll4ZGtNelZyZFFNaUR6YUY3b2Z1aVlOYWZORVJ3a1R6VFByOUt4MUNLVk9nQ3YxZkNPenVWOEdCZ0I1TGNGeFIyVEV6WjJUbzYxZVlLYnhLYllHdFcvb3pDSm9kYWx1clFxYnpLZ3JnTDhxc2YwbjZzRlpMT2JtTmI/Coldplay_ft._Imagine_Dragons_-_Believe_(mp3.pm).mp3',
+                        'https://cs1.mp3.pm/download/70605445/QmFaRmwyNll4ZGtNelZyZFFNaUR6YUY3b2Z1aVlOYWZORVJ3a1R6VFByOUt4MUNLVk9nQ3YxZkNPenVWOEdCZ0I1TGNGeFIyVEV6WjJUbzYxZVlLYnhLYllHdFcvb3pDSm9kYWx1clFxYnpLZ3JnTDhxc2YwbjZzRlpMT2JtTmI/Coldplay_ft._Imagine_Dragons_-_Believe_(mp3.pm).mp3',
+                        'https://cs1.mp3.pm/download/70605445/QmFaRmwyNll4ZGtNelZyZFFNaUR6YUY3b2Z1aVlOYWZORVJ3a1R6VFByOUt4MUNLVk9nQ3YxZkNPenVWOEdCZ0I1TGNGeFIyVEV6WjJUbzYxZVlLYnhLYllHdFcvb3pDSm9kYWx1clFxYnpLZ3JnTDhxc2YwbjZzRlpMT2JtTmI/Coldplay_ft._Imagine_Dragons_-_Believe_(mp3.pm).mp3',
+                         
+                       ],),
 
                       // const SizedBox(height: 10,),
 
@@ -138,7 +145,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           subtitles: [
                             'Your daily mixtape',
                             'Your Weekly mixTape'
-                          ]),
+                          ],
+                           audioUrls: [],),
                           const SizedBox(height: 150),
 
                        
