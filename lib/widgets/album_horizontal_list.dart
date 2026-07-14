@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_10/core/models/song_model.dart';
 import 'package:flutter_application_10/screens/music_player_screen.dart';
+
 
 class AlbumHorizontalList extends StatelessWidget {
   final List<String>images;
@@ -29,9 +31,17 @@ class AlbumHorizontalList extends StatelessWidget {
              Navigator.push(context, MaterialPageRoute(
               builder: (context)=>MusicPlayerScreen(
                 title: titles[index],
-                
-                 singer: subtitles.isNotEmpty?subtitles[index]:'unknown singer',
-                 image: images[index])));
+              singer: subtitles.isNotEmpty ? subtitles[index] : 'unknown singer',
+              image: images[index], 
+             selectedSong: SongModel(
+             title: titles[index],
+             artist: subtitles.isNotEmpty ? subtitles[index] : 'unknown singer',
+             coverUrl: images[index],
+            hasLyrics: true,
+  ),
+              ),
+             ),
+             );
            },
            child: Container(
             width: 174,

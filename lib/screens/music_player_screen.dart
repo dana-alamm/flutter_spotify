@@ -1,17 +1,23 @@
 // 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_10/core/constants/app_colors.dart';
+import 'package:flutter_application_10/core/models/song_model.dart';
 
 class MusicPlayerScreen extends StatefulWidget {
+  final SongModel selectedSong; 
+
+  
+  
   final String title;
   final String singer;
   final String image;
-
+ 
   const MusicPlayerScreen({
     super.key,
     required this.title,
     required this.singer,
     required this.image,
+    required this.selectedSong,
   });
 
   @override
@@ -19,6 +25,9 @@ class MusicPlayerScreen extends StatefulWidget {
 }
 
 class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
+  bool _isPlaying=false;
+  bool _isFavorite=false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -153,8 +162,26 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
                       IconButton(
                         padding: EdgeInsets.zero,
                         constraints: const BoxConstraints(),
-                        icon: const Icon(Icons.favorite_border, color: Colors.white, size: 28),
-                        onPressed: () {},
+                        icon: Icon(_isFavorite?Icons.favorite_rounded:Icons.favorite_border_rounded,
+                        color:_isFavorite?Colors.redAccent:Colors.grey[400],
+                         size: 28),
+                        onPressed: () {
+                          setState(() {
+                            _isFavorite=!_isFavorite;
+                          });
+                          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                _isFavorite?'Added to Liked Songs ❤️' : 'Removed from Liked Songs 💔',
+                                style: const TextStyle(color:Colors.white),
+                              ),
+                              backgroundColor: Colors.grey[900],
+                             duration: const Duration(seconds: 1),
+                             behavior: SnackBarBehavior.floating,
+                              ),
+                          );
+                        },
                       ),
                     ],
                   ),
@@ -211,12 +238,22 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
                         onPressed: () {},
                       ),
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          setState(() {
+                            _isPlaying=!_isPlaying;
+                          });
+                         
+                        },
                         child: Container(
                           width: 60,
                           height: 60,
-                          decoration: const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
-                          child: const Icon(Icons.pause, color: Colors.black, size: 36),
+                          decoration: BoxDecoration(
+                            color:_isPlaying?AppColors.primaryGreen:Colors.white,
+                             shape: BoxShape.circle),
+                          child:  Icon(
+                            _isPlaying?Icons.pause:Icons.play_arrow,
+                            color: Colors.black,
+                             size: 36),
                         ),
                       ),
                       IconButton(
