@@ -79,4 +79,32 @@ final List<SongModel> globalSongsList = [
     hasLyrics: true,
     audioURL: 'https://cs1.mp3.pm/download/70605445/QmFaRmwyNll4ZGtNelZyZFFNaUR6YUY3b2Z1aVlOYWZORVJ3a1R6VFByOUt4MUNLVk9nQ3YxZkNPenVWOEdCZ0I1TGNGeFIyVEV6WjJUbzYxZVlLYnhLYllHdFcvb3pDSm9kYWx1clFxYnpLZ3JnTDhxc2YwbjZzRlpMT2JtTmI/Coldplay_ft._Imagine_Dragons_-_Believe_(mp3.pm).mp3',
   ),
+  SongModel(
+    title: 'Cheap Thrills', 
+    artist: 'Sia', 
+    coverUrl: 'assets/images/cheap.jpg', 
+    hasLyrics: true,
+    audioURL: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3', 
+  ),
+  SongModel(
+    title: 'Harley’s in Hawaii', 
+    artist: 'Katy Perry', 
+    coverUrl: 'assets/images/harleys.jpg', 
+    hasLyrics: true,
+    audioURL: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3', 
+  ),
+  SongModel(
+    title: 'Daily Mix 1', 
+    artist: 'Spotify', 
+    coverUrl: 'assets/images/imagine_dragons.jpg',
+    hasLyrics: false,
+    audioURL: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3',
+  ),
+  SongModel(
+    title: 'Discover Weekly', 
+    artist: 'Spotify', 
+    coverUrl: 'assets/images/alone_poster.jpg', 
+    hasLyrics: false,
+    audioURL: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3',
+  ),
 ];
