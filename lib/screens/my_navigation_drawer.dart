@@ -5,7 +5,7 @@ import 'package:flutter_application_10/screens/welcome_screen.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-// 🌟 قمنا بتغيير اسم الكلاس ليعبر عن كونه الـ Drawer الأساسي للتطبيق
+
 class MyNavigationDrawer extends StatefulWidget {
   const MyNavigationDrawer({super.key});
 
@@ -15,7 +15,7 @@ class MyNavigationDrawer extends StatefulWidget {
 
 class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
   File? _imagefile;
-  String _displayName = "User"; // 🌟 اسمكِ الافتراضي الجميل
+  String _displayName = "User"; 
   
   @override
   void initState(){
@@ -154,8 +154,8 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
                       icon: Icons.person_outline_rounded,
                       title: 'Profile',
                       onTap: () {
-                        Navigator.pop(context); // يغلق القائمة الجانبية
-                        // 🌟 يمكنكِ مستقبلاً توجيهه لشاشة بروفايل مستقلة بدلاً من فتح نفس الدروير
+                        Navigator.pop(context); 
+                        
                       },
                     ),
                   ],
