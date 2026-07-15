@@ -16,17 +16,19 @@ class PlaylistScreen extends StatefulWidget {
 }
 
 class _PlaylistScreenState extends State<PlaylistScreen> {
-  @override
-  Widget build(BuildContext context) {
-     int _selectedIndex=2;
+   int _selectedIndex=2;
      
-     late final List<SongModel> songsList;
+     //late final List<SongModel> songsList;
+     List<SongModel> songsList = [];
 
     @override
     void initState(){
      super.initState();
      songsList=globalSongsList;
     }
+  @override
+  Widget build(BuildContext context) {
+    
     return Scaffold(
     backgroundColor: AppColors.background,
     extendBody: true,
@@ -213,7 +215,10 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                       return GestureDetector(
                         onTap: (){
                           Navigator.of(context).push(
-                            MaterialPageRoute(builder: (context)=>MusicPlayerScreen(selectedSong: song, title: '', singer: '', image: '',),
+                            MaterialPageRoute(builder: (context)=>MusicPlayerScreen(selectedSong: song,
+                             title:song.title,
+                              singer: song.artist,
+                               image: song.coverUrl,),
                           ),
                           );
                         },
@@ -221,7 +226,7 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                         image: song.coverUrl,
                         title: song.title,
                         singer: song.artist,
-                        hasLyrics: true, 
+                        hasLyrics: song.hasLyrics,
                       ),
                       );
                     },

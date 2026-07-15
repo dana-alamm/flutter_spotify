@@ -161,9 +161,12 @@ void _onSearchChanged(String query){
                         padding: const EdgeInsets.only(right:16.0),
                         child:SizedBox(
                           width: 184,
-                          child: BuildCrads(
-                            title: topGenresData[index]['title'],
-                             backgroundColor: topGenresData[index]['color']),
+                          child: InkWell(
+                            borderRadius: BorderRadius.circular(8.0),
+                            child: BuildCrads(
+                              title: topGenresData[index]['title'],
+                               backgroundColor: topGenresData[index]['color']),
+                          ),
                         ),
                         );
 
@@ -197,10 +200,13 @@ void _onSearchChanged(String query){
                       
                       ),
                      itemBuilder: (context,index){
-                      return BuildCrads(
-                        title: browseAllData[index]['title'],
-                        backgroundColor: browseAllData[index]['color'],
-                        );
+                      return InkWell(
+                        borderRadius: BorderRadius.circular(8.0),
+                        child: BuildCrads(
+                          title: browseAllData[index]['title'],
+                          backgroundColor: browseAllData[index]['color'],
+                          ),
+                      );
                      }
                      ),
                  ]else...[

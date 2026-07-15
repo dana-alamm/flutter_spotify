@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_10/screens/home_screen.dart';
 import 'package:flutter_application_10/screens/playlist_screen.dart';
 import 'package:flutter_application_10/screens/search_screen.dart';
 
@@ -41,7 +42,11 @@ class customBottonNavBar extends StatelessWidget {
             onTap: (index){
               if(index==currentIndex)return;
               if(index==0){
-                Navigator.popUntil(context, (route)=>route.isFirst);
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => const HomeScreen()),
+                  (route) => false, 
+                );
               }
               else if(index==1){
                 Navigator.push(context, MaterialPageRoute(builder: (context)=>SearchScreen()));

@@ -1,8 +1,9 @@
-// 
+
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter_application_10/core/constants/app_colors.dart';
 import 'package:flutter_application_10/core/models/song_model.dart';
+import 'package:flutter_application_10/core/constants/app_data.dart';
 
 class MusicPlayerScreen extends StatefulWidget {
   final SongModel selectedSong; 
@@ -30,16 +31,24 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
   bool _isFavorite=false;
   final AudioPlayer _audioPlayer=AudioPlayer();
 
+late SongModel _currentSong;
+late int _currentIndex;
+
   @override
   void initState(){
     super.initState();
-    _isFavorite=widget.selectedSong.isFavorite;
+    _currentSong=widget.selectedSong;
+    _isFavorite=_currentSong.isFavorite;
+
+    _currentIndex=globalSongsList.indexWhere((song)=>song.title==_currentSong.title);
+    if(_currentIndex==-1)_currentIndex=0;
     _playAudio();
   }
 
 void _playAudio()async{
   try{
-    await _audioPlayer.play(UrlSource(widget.selectedSong.audioURL));
+    await _audioPlayer.stop();
+    await _audioPlayer.play(UrlSource(_currentSong.audioURL));
     setState(() {
       _isPlaying=true;
     });
@@ -47,6 +56,32 @@ void _playAudio()async{
     print("Error playing audio: $e");
   }
 }
+
+void _playNext(){
+  if(_currentIndex<globalSongsList.length-1){
+    _currentIndex++;
+  }else{
+    _currentIndex=0;
+  }
+  setState(() {
+    _currentSong = globalSongsList[_currentIndex];
+      _isFavorite = _currentSong.isFavorite;
+  });
+  _playAudio();
+}
+
+void _playPrevious() {
+    if (_currentIndex > 0) {
+      _currentIndex--;
+    } else {
+      _currentIndex = globalSongsList.length - 1; 
+    }
+    setState(() {
+      _currentSong = globalSongsList[_currentIndex];
+      _isFavorite = _currentSong.isFavorite;
+    });
+    _playAudio();
+  }
 @override
 void dispose(){
   _audioPlayer.dispose();
@@ -99,7 +134,7 @@ void dispose(){
                           ),
                           const SizedBox(height: 2),
                           Text(
-                            '"${widget.title}" in Songs',
+                            '"${_currentSong.title}" in Songs',
                             style: const TextStyle(
                               fontFamily: 'Poppins',
                               color: Colors.white,
@@ -123,20 +158,29 @@ void dispose(){
                 const Spacer(),
 
                 
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.85,
-                  height: MediaQuery.of(context).size.width * 0.85,
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.5),
-                        blurRadius: 20,
-                        offset: const Offset(0, 10),
+                GestureDetector(
+                  onHorizontalDragEnd: (details) {
+                    if(details.primaryVelocity!<0){
+                      _playNext();
+                    }else if(details.primaryVelocity!>0){
+                     _playPrevious();
+                    }
+                  },
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.85,
+                    height: MediaQuery.of(context).size.width * 0.85,
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.5),
+                          blurRadius: 20,
+                          offset: const Offset(0, 10),
+                        ),
+                      ],
+                      image: DecorationImage(
+                      image: AssetImage(_currentSong.coverUrl),
+                        fit: BoxFit.cover,
                       ),
-                    ],
-                    image: DecorationImage(
-                      image: AssetImage(widget.selectedSong.coverUrl),
-                      fit: BoxFit.cover,
                     ),
                   ),
                 ),
@@ -156,7 +200,7 @@ void dispose(){
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Text(
-                              widget.selectedSong.title,
+                              _currentSong.title,
                               style: const TextStyle(
                                 fontFamily: 'Gotham',
                                 color: Colors.white,
@@ -169,7 +213,7 @@ void dispose(){
                             ),
                             const SizedBox(height: 4),
                             Text(
-                              widget.selectedSong.artist,
+                              _currentSong.artist,
                               style: const TextStyle(
                                 fontFamily: 'Gotham',
                                 color: Color(0xFFA7A7A7),
@@ -192,7 +236,7 @@ void dispose(){
                         onPressed: () {
                           setState(() {
                             _isFavorite=!_isFavorite;
-                            widget.selectedSong.isFavorite = _isFavorite;
+                            _currentSong.isFavorite = _isFavorite;
                           });
                           ScaffoldMessenger.of(context).hideCurrentSnackBar();
                           ScaffoldMessenger.of(context).showSnackBar(
@@ -260,7 +304,7 @@ void dispose(){
                       ),
                       IconButton(
                         icon: const Icon(Icons.skip_previous, color: Colors.white, size: 36),
-                        onPressed: () {},
+                        onPressed: () {_playPrevious();},
                       ),
                       GestureDetector(
                         onTap: () async{
@@ -268,7 +312,9 @@ void dispose(){
                             await _audioPlayer.pause();
                             
                           }else{
-                            await _audioPlayer.play(UrlSource(widget.selectedSong.audioURL));
+                            
+                            await _audioPlayer.play(UrlSource(_currentSong.audioURL));
+                            
                           }
                           setState(() {
                             _isPlaying = !_isPlaying;
@@ -289,7 +335,7 @@ void dispose(){
                       ),
                       IconButton(
                         icon: const Icon(Icons.skip_next, color: Colors.white, size: 36),
-                        onPressed: () {},
+                        onPressed: () {_playNext();},
                       ),
                       IconButton(
                         icon: const Icon(Icons.repeat, color: Color(0xFFA7A7A7), size: 24),
