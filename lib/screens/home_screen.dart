@@ -73,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                IconButton(
                               icon: const Icon(Icons.person_rounded, color: Colors.white, size: 26),
                               onPressed: () {
-                                Navigator.push(context, MaterialPageRoute(builder: (_)=> MyNavigationDrawer()));
+                                Navigator.push(context, MaterialPageRoute(builder: (_)=> MyNavigationDrawer(favoriteItems: [],)));
                               },
                               splashColor: Colors.transparent,
                               highlightColor: Colors.transparent,

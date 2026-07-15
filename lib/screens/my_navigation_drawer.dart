@@ -2,12 +2,20 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_10/screens/welcome_screen.dart';
+
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 class MyNavigationDrawer extends StatefulWidget {
-  const MyNavigationDrawer({super.key});
+  
+  final List<Map<String, String>> favoriteItems;
+  final VoidCallback? onUpdate;
+
+  const MyNavigationDrawer({
+    super.key,
+    required this.favoriteItems,
+    this.onUpdate,
+  });
 
   @override
   State<MyNavigationDrawer> createState() => _MyNavigationDrawerState();
@@ -25,22 +33,20 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
 
   Future<void> _loadUserName() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? savedName = prefs.getString('user_name');
+    String? imagePath = prefs.getString('user_image_path');
 
-    if(savedName!=null&&savedName.isNotEmpty){
-      setState(() {
-        _displayName=savedName;
-      });
-    }else{
-      String? email=prefs.getString('user_email');
-      if(email!=null&&email.contains('@')){
-        setState(() {
-          _displayName=email.split('@')[0];
+    setState(() {
+      _displayName = prefs.getString('user_name') ?? "User";
+      if (imagePath != null && imagePath.isNotEmpty) {
+        _imagefile = File(imagePath);
+      }
+    });
 
-        });
-      }else{
+    if (_displayName == 'User' || _displayName.isEmpty) {
+      String? email = prefs.getString('user_email');
+      if (email != null && email.contains('@')) {
         setState(() {
-          _displayName='User';
+          _displayName = email.split('@')[0];
         });
       }
     }
@@ -49,8 +55,10 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
   Future<void> _pickImageFromGallery() async {
     final ImagePicker picker = ImagePicker();
     final XFile? pickedFile = await picker.pickImage(source: ImageSource.gallery);
-
     if (pickedFile != null) {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString('user_image_path', pickedFile.path);
+
       setState(() {
         _imagefile = File(pickedFile.path);
       });
@@ -60,19 +68,16 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-       borderRadius: const BorderRadius.only(
-    topRight: Radius.circular(25),
-    bottomRight: Radius.circular(25),
-  ),
+      borderRadius: const BorderRadius.only(
+        topRight: Radius.circular(25),
+        bottomRight: Radius.circular(25),
+      ),
       child: Drawer(
-        //width: MediaQuery.of(context).size.width * 0.65,
-       // width: 280,
         backgroundColor: Colors.white,
         child: SafeArea(
           child: Column(
             children: [
               Padding(
-                //padding: const EdgeInsets.symmetric(vertical: 60.0, horizontal: 24.0),
                 padding: const EdgeInsets.only(top: 30.0, bottom: 10.0, left: 24.0, right: 24.0),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -110,13 +115,10 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
                       ],
                     ),
                   ],
-                  
                 ),
               ),
-              SizedBox(height: 20,),
-              const Divider(color: Color(0xFFEEEEEE), thickness: 1,
-              height: 1,
-              ),
+              const SizedBox(height: 20,),
+              const Divider(color: Color(0xFFEEEEEE), thickness: 1, height: 1),
       
               Expanded(
                 child: ListView(
@@ -150,12 +152,24 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
                         Navigator.pop(context);
                       },
                     ),
+                    
+          
+                    _buildDrawerItem(
+                      icon: Icons.favorite_border_rounded,
+                      title: 'Favorite', 
+                      onTap: () {
+                        Navigator.pop(context); 
+                     
+                          
+                        
+                      },
+                    ),
+                    
                     _buildDrawerItem(
                       icon: Icons.person_outline_rounded,
                       title: 'Profile',
                       onTap: () {
                         Navigator.pop(context); 
-                        
                       },
                     ),
                   ],
@@ -170,27 +184,28 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
                     Navigator.pop(context);
                     final SharedPreferences prefs = await SharedPreferences.getInstance();
                     await prefs.remove('user_name');
+                    await prefs.remove('user_email');
+                    await prefs.remove('user_image_path'); 
+                    if (mounted) {
+                      Navigator.pushReplacement(
+                        context, 
+                        MaterialPageRoute(builder: (context) => const WelcomeScreen())
+                      );
+                    }
                   },
                   child: Row(
-                    children:  [
-                      Icon(Icons.logout_rounded, color: Colors.black, size: 24),
-                      SizedBox(width: 16),
-                      InkWell(
-                        
-                        child: Text(
-                          'Log Out',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.black,
-                            fontFamily: 'Inter',
-                          ),
+                    children: [
+                      const Icon(Icons.logout_rounded, color: Colors.black, size: 24),
+                      const SizedBox(width: 16),
+                      const Text(
+                        'Log Out',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.black,
+                          fontFamily: 'Inter',
                         ),
-                        onTap: () {
-                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>WelcomeScreen()));
-                        },
                       ),
-                     
                     ],
                   ),
                 ),
