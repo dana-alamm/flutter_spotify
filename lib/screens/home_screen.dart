@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_10/core/constants/app_colors.dart';
+import 'package:flutter_application_10/screens/my_navigation_drawer.dart';
 import 'package:flutter_application_10/widgets/album_horizontal_list.dart';
 import 'package:flutter_application_10/widgets/custom_bottom_nav_bar.dart';
 import 'package:flutter_application_10/widgets/home_section_title.dart';
@@ -18,6 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
     backgroundColor:AppColors.background,
       extendBody: true,
       body:  Container(
@@ -69,8 +71,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                highlightColor: Colors.transparent,
                                ),
                                IconButton(
-                              icon: const Icon(Icons.settings_outlined, color: Colors.white, size: 26),
-                              onPressed: () {},
+                              icon: const Icon(Icons.person_rounded, color: Colors.white, size: 26),
+                              onPressed: () {
+                                Navigator.push(context, MaterialPageRoute(builder: (_)=> MyNavigationDrawer()));
+                              },
                               splashColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                             ),

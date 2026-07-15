@@ -5,6 +5,7 @@ import 'package:flutter_application_10/screens/signup_screen.dart';
 import 'package:flutter_application_10/core/constants/app_colors.dart';
 //import 'package:flutter_application_10/widgets/custom_social_button.dart';
 import 'package:flutter_application_10/widgets/spotify_header.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -48,6 +49,9 @@ class _LoginScreenState extends State<LoginScreen> {
           email: _usernameController.text.trim(), 
           password: _passwordController.text.trim(),
           );
+
+          final SharedPreferences prefs=await SharedPreferences.getInstance();
+          await prefs.setString('user_email', _usernameController.text.trim());
           if(mounted){
             setState(() {
               _isLoading=false;
