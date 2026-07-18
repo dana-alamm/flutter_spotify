@@ -46,7 +46,8 @@ class AlbumHorizontalList extends StatelessWidget {
                artist: subtitles.isNotEmpty ? subtitles[index] : 'unknown singer',
                coverUrl: images[index],
               hasLyrics: true,
-               audioURL: audioUrls[index],
+               audioURL: index < audioUrls.length ? audioUrls[index] : '',
+
               ),
                 ),
                ),
