@@ -40,12 +40,16 @@ late int _currentIndex;
     _currentSong=widget.selectedSong;
     _isFavorite=_currentSong.isFavorite;
 
-    _currentIndex=globalSongsList.indexWhere((song)=>song.title==_currentSong.title);
-    if(_currentIndex==-1)_currentIndex=0;
+    _currentIndex=globalSongsList.indexWhere((song)=>song.title.trim().toLowerCase()==_currentSong.title.trim().toLowerCase());
+    if(_currentIndex==-1){_currentIndex=0;}
     _playAudio();
   }
 
 void _playAudio()async{
+  if (_currentSong.audioURL.isEmpty || !_currentSong.audioURL.startsWith('http')) {
+      print("Empty url");
+      return;
+    }
   try{
     await _audioPlayer.stop();
     await _audioPlayer.play(UrlSource(_currentSong.audioURL));
@@ -308,17 +312,34 @@ void dispose(){
                       ),
                       GestureDetector(
                         onTap: () async{
-                          if(_isPlaying){
-                            await _audioPlayer.pause();
+                          // if(_isPlaying){
+                          //   await _audioPlayer.pause();
                             
-                          }else{
+                          // }else{
                             
-                            await _audioPlayer.play(UrlSource(_currentSong.audioURL));
+                          //   await _audioPlayer.play(UrlSource(_currentSong.audioURL));
                             
-                          }
+                          // }
+                          // setState(() {
+                          //   _isPlaying = !_isPlaying;
+                          // });
                           setState(() {
                             _isPlaying = !_isPlaying;
                           });
+
+                          try {
+                            if (!_isPlaying) {
+                              await _audioPlayer.pause();
+                            } else {
+                              if (_currentSong.audioURL.isNotEmpty && _currentSong.audioURL.startsWith('http')) {
+                                await _audioPlayer.play(UrlSource(_currentSong.audioURL));
+                              } else {
+                                print("Empty URL");
+                              }
+                            }
+                          } catch (e) {
+                            print("ERROR");
+                          }
                          
                         },
                         child: Container(

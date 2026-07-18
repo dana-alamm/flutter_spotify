@@ -93,7 +93,7 @@ final List<SongModel> globalSongsList = [
     hasLyrics: true,
     audioURL: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3', 
   ),
-  SongModel(
+ SongModel(
     title: 'Daily Mix 1', 
     artist: 'Spotify', 
     coverUrl: 'assets/images/imagine_dragons.jpg',
