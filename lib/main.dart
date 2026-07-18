@@ -1,20 +1,28 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_10/firebase_options.dart';
+import 'package:flutter_application_10/screens/home_screen.dart';
 import 'package:flutter_application_10/screens/splash_screen.dart';
 //import 'package:flutter_application_10/features/splash/view_models/views/splash_screen.dart';
+import 'package:flutter_application_10/screens/login_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  final bool isLoggedIn=prefs.getBool('isLoggedIn')??false;
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MyApp());
+  //runApp(const MyApp());
+  runApp(MyApp(isLoggedIn: isLoggedIn));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final bool isLoggedIn;
+  const MyApp({super.key, required this.isLoggedIn});
 
   // This widget is the root of your application.
   @override
@@ -26,7 +34,7 @@ class MyApp extends StatelessWidget {
         
         colorScheme: .fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const SplashScreen(),
+      home: isLoggedIn? const HomeScreen():const LoginScreen(),
     );
   }
 }

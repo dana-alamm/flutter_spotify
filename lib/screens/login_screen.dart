@@ -52,6 +52,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
           final SharedPreferences prefs=await SharedPreferences.getInstance();
           await prefs.setString('user_email', _usernameController.text.trim());
+          await prefs.setBool('isLoggedIn', true);
           if(mounted){
             setState(() {
               _isLoading=false;
