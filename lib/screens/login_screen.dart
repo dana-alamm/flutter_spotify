@@ -22,23 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _isLoading=false;
   bool _isobscure=true;
 
-  // void _handleLogin() async{
-  //   if(_formkey.currentState!.validate()){
-  //     setState(() {
-  //       _isLoading=true;
-  //     });
-  //     await Future.delayed(const Duration(seconds: 2));
-  //     if(mounted){
-  //       setState(() {
-  //         _isLoading=false;
-  //       });
-      
-  //     Navigator.of(context).pushReplacement(
-  //       MaterialPageRoute(builder: (context)=>HomeScreen()),
-  //     );
-  //     }
-  //   }
-  // }
+ 
 
   void _handleLogin()async{
     if(_formkey.currentState!.validate()){
@@ -67,14 +51,20 @@ class _LoginScreenState extends State<LoginScreen> {
           setState(() {
             _isLoading=false;
           });
+      
+      print("🔥 Firebase Auth Error Code: ${e.code}");
           String errorMessage = 'An error occurred. Please try again.';
-        if (e.code == 'user-not-found') {
-          errorMessage = 'No user found for that email. Sign up instead! 😉';
-        } else if (e.code == 'wrong-password') {
-          errorMessage = 'Wrong password provided. Please try again.';
-        } else if (e.code == 'invalid-email') {
-          errorMessage = 'The email address is badly formatted.';
-        }
+          
+          
+          if (e.code == 'invalid-credential' || e.code == 'wrong-password' || e.code == 'user-not-found') {
+            errorMessage = 'Incorrect email or password. Please verify your data or Sign up! 😉';
+          } else if (e.code == 'invalid-email') {
+            errorMessage = 'The email address is badly formatted.';
+          } else if (e.code == 'user-disabled') {
+            errorMessage = 'This user account has been disabled.';
+          } else if (e.code == 'network-request-failed') {
+            errorMessage = 'Network error. Please check your internet connection! 🌐';
+          }
         ScaffoldMessenger.of(context).hideCurrentSnackBar();
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -143,6 +133,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       if(value==null||value.trim().isEmpty){
                         return'please enter a username';
                       }
+                      final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+                      if (!emailRegex.hasMatch(value.trim())) {
+                      return 'Please enter a valid email address (e.g., name@example.com)';
+                      }
                       return null;
                     },
                   ),
@@ -184,14 +178,14 @@ class _LoginScreenState extends State<LoginScreen> {
                       if(value==null||value.isEmpty){
                         return "please enter your password";
                       }
-                      // if(value.length<8){
-                      //   return "Password must be at least 8 characters";
-                      // }
-                      //final RegExp passwordRegex=RegExp(r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$');
+                      if(value.length<8){
+                       return "Password must be at least 8 characters";
+                       }
+                      final RegExp passwordRegex=RegExp(r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$');
 
-                      // if(!passwordRegex.hasMatch(value)){
-                      //   return 'Must include letters, numbers, and special characters (e.g. @, #, !)';
-                      // }
+                       if(!passwordRegex.hasMatch(value)){
+                         return 'Must include letters, numbers, and special characters (e.g. @, #, !)';
+                       }
                       return null;
                     },
                     
