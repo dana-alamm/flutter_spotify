@@ -1,10 +1,11 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_application_10/core/services/SharedPrefsServices.dart';
 import 'package:flutter_application_10/screens/welcome_screen.dart';
 
 import 'package:image_picker/image_picker.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
 
 class MyNavigationDrawer extends StatefulWidget {
   
@@ -31,19 +32,21 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
     _loadUserName();
   }
 
-  Future<void> _loadUserName() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? imagePath = prefs.getString('user_image_path');
+  void _loadUserName()  {
+    
+    String? imagePath = SharedPrefsServices.getData(key: 'user_image_path');
+    String?name=SharedPrefsServices.getData(key: 'user_name');
+    String?email=SharedPrefsServices.getData(key: 'user_email');
 
     setState(() {
-      _displayName = prefs.getString('user_name') ?? "User";
+      _displayName = name??"User";
       if (imagePath != null && imagePath.isNotEmpty) {
         _imagefile = File(imagePath);
       }
     });
 
     if (_displayName == 'User' || _displayName.isEmpty) {
-      String? email = prefs.getString('user_email');
+      
       if (email != null && email.contains('@')) {
         setState(() {
           _displayName = email.split('@')[0];
@@ -56,8 +59,7 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
     final ImagePicker picker = ImagePicker();
     final XFile? pickedFile = await picker.pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
-      final SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.setString('user_image_path', pickedFile.path);
+      await SharedPrefsServices.saveData(key: 'user_image_path', value: pickedFile.path);
 
       setState(() {
         _imagefile = File(pickedFile.path);
@@ -74,6 +76,7 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
       ),
       child: Drawer(
         backgroundColor: Colors.white,
+        width: MediaQuery.of(context).size.width * 0.5,
         child: SafeArea(
           child: Column(
             children: [
@@ -182,10 +185,11 @@ class _MyNavigationDrawerState extends State<MyNavigationDrawer> {
                 child: InkWell(
                   onTap: () async {
                     Navigator.pop(context);
-                    final SharedPreferences prefs = await SharedPreferences.getInstance();
-                    await prefs.remove('user_name');
-                    await prefs.remove('user_email');
-                    await prefs.remove('user_image_path'); 
+                  
+                  // await SharedPrefsServices.removeData(key: 'user_name');
+                   await SharedPrefsServices.removeData(key: 'user_email');
+                   //await SharedPrefsServices.removeData(key: 'user_image_path'); 
+                   await SharedPrefsServices.removeData(key: 'isLoggedIn');
                     if (mounted) {
                       Navigator.pushReplacement(
                         context, 

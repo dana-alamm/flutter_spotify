@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_10/core/services/SharedPrefsServices.dart';
 import 'package:flutter_application_10/screens/home_screen.dart';
 import 'package:flutter_application_10/screens/signup_screen.dart';
 import 'package:flutter_application_10/core/constants/app_colors.dart';
@@ -50,9 +51,9 @@ class _LoginScreenState extends State<LoginScreen> {
           password: _passwordController.text.trim(),
           );
 
-          final SharedPreferences prefs=await SharedPreferences.getInstance();
-          await prefs.setString('user_email', _usernameController.text.trim());
-          await prefs.setBool('isLoggedIn', true);
+          
+          await SharedPrefsServices.saveData(key:'user_email',value: _usernameController.text.trim());
+         await SharedPrefsServices.saveData(key: 'isLoggedIn',value: true);
           if(mounted){
             setState(() {
               _isLoading=false;
