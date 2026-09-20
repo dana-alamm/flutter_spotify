@@ -38,3 +38,54 @@ A modern, responsive music streaming app UI inspired by **Spotify**, built using
 | :---: |
 | <img width="240" alt="Screenshot 2026-09-20 145318" src="https://github.com/user-attachments/assets/659d369e-b174-4863-b1d4-e24aeb64ef95" /> |
 
+---
+
+## ✨ Key Features
+
+- **Authentication & Security:**
+  - Email & Password Sign-up and Sign-in powered by Firebase Authentication.
+  - Strict form validation using regular expressions for email structure and password complexity.
+  - Secure and user-friendly error messages (handling invalid credentials, network issues, etc.).
+
+- **Music Browsing & Discovery:**
+  - Spotify-inspired dark UI with custom themes and typography.
+  - Interactive Search interface with instant query filtering.
+  - Curated Home feed and personal "Your Library" view.
+
+- **Audio Player UI:**
+  - Modern "Now Playing" screen displaying album artwork, track duration sliders, and playback controls.
+
+- **Session & Local Storage:**
+  - Persistent login states and profile caching using `shared_preferences`.
+
+---
+
+## 🛠️ Tech Stack & Dependencies
+
+- **Framework:** Flutter (Dart)
+- **Backend Service:** Firebase Authentication
+- **Local Persistence:** `shared_preferences`
+- **Media & UI:** Custom Icons, Google Fonts (Poppins), and Asset Images
+
+---
+
+## 📂 Project Structure
+
+```text
+lib/
+├── core/
+│   ├── constants/       # App colors, themes, assets
+│   └── services/        # Shared Preferences & local cache services
+├── screens/
+│   ├── welcome_screen.dart
+│   ├── login_screen.dart
+│   ├── signup_screen.dart
+│   ├── home_screen.dart
+│   ├── search_screen.dart
+│   ├── library_screen.dart
+│   └── player_screen.dart
+├── widgets/
+│   ├── spotify_header.dart
+│   ├── custom_drawer.dart
+│   └── custom_text_fields.dart
+└── main.dart
