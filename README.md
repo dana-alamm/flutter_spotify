@@ -7,7 +7,8 @@ A modern, responsive music streaming app UI inspired by **Spotify**, built using
 ### 🔐 Authentication Flow
 | Welcome Screen | Log In Screen | Sign Up Screen |
 | :---: | :---: | :---: |
-| <img width="240" alt="Welcome Screen" src="https://github.com/user-attachments/assets/b2d2efbc-564e-4837-8a12-63574e6f7612" /> | <img width="240" alt="Sign Up Screen" src="https://github.com/user-attachments/assets/ada9ff52-f23d-4223-812b-ba319d5024d7" /> | 
+| <img width="240" alt="Welcome Screen" src="https://github.com/user-attachments/assets/b2d2efbc-564e-4837-8a12-63574e6f7612" /> | <img width="240" alt="Sign Up Screen" src="https://github.com/user-attachments/assets/ada9ff52-f23d-4223-812b-ba319d5024d7" /> | <img width="240"  alt="Screenshot 2026-09-20 145119" src="https://github.com/user-attachments/assets/4cf04f9a-9589-487b-a34d-4aca68a6994e" />
+
 
 ---
 
