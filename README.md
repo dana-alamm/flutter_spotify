@@ -15,7 +15,7 @@ A modern, responsive music streaming app UI inspired by **Spotify**, built using
 
 | Home Screen | 
 | :---: |
-<img width="378" height="840" alt="Screenshot 2026-09-20 145158" src="https://github.com/user-attachments/assets/31c7eb14-75a7-4990-b866-353e8bb66cb6" />
+<img width="240"  alt="Screenshot 2026-09-20 145158" src="https://github.com/user-attachments/assets/31c7eb14-75a7-4990-b866-353e8bb66cb6" />
 
 
 ---
