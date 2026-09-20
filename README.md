@@ -1,3 +1,16 @@
 # 🎵 Spotify Clone - Flutter & Firebase
 
 A modern, responsive music streaming app UI inspired by **Spotify**, built using **Flutter** and integrated with **Firebase Authentication** and **Local Caching**.
+
+## 📱 App Screenshots
+
+### 🔐 Authentication Flow
+| Welcome Screen | Log In Screen | Sign Up Screen |
+| :---: | :---: | :---: |
+<img width="380" height="844" alt="image" src="https://github.com/user-attachments/assets/b2d2efbc-564e-4837-8a12-63574e6f7612" />
+<img width="376" height="842" alt="Screenshot 2026-09-20 145119" src="https://github.com/user-attachments/assets/db9b7b2c-e631-49fb-b820-43212aa06942" />
+<img width="379" height="846" alt="Screenshot 2026-09-20 145101" src="https://github.com/user-attachments/assets/ada9ff52-f23d-4223-812b-ba319d5024d7" />
+
+
+
+---
