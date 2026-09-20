@@ -69,23 +69,4 @@ A modern, responsive music streaming app UI inspired by **Spotify**, built using
 
 ---
 
-## 📂 Project Structure
 
-```text
-lib/
-├── core/
-│   ├── constants/       # App colors, themes, assets
-│   └── services/        # Shared Preferences & local cache services
-├── screens/
-│   ├── welcome_screen.dart
-│   ├── login_screen.dart
-│   ├── signup_screen.dart
-│   ├── home_screen.dart
-│   ├── search_screen.dart
-│   ├── library_screen.dart
-│   └── player_screen.dart
-├── widgets/
-│   ├── spotify_header.dart
-│   ├── custom_drawer.dart
-│   └── custom_text_fields.dart
-└── main.dart
