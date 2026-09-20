@@ -19,11 +19,9 @@ A modern, responsive music streaming app UI inspired by **Spotify**, built using
 
 
 ---
-| Search Screen | 
-| :---: |
-<img width="376" height="840" alt="Screenshot 2026-09-20 145211" src="https://github.com/user-attachments/assets/90caf9db-c01f-43d1-a184-b2fa154a8534" />
-<img width="380" height="848" alt="Screenshot 2026-09-20 145236" src="https://github.com/user-attachments/assets/b95cd476-748e-4320-89f9-be93cc4afcfc" />
-<img width="381" height="838" alt="Screenshot 2026-09-20 145252" src="https://github.com/user-attachments/assets/fcb32d49-2d55-4a73-886a-e068777a47df" />
+| Search Screen 1 | Search Screen 2 | Search Screen 3 |
+| :---: | :---: | :---: |
+| <img width="240" alt="Search 1" src="https://github.com/user-attachments/assets/90caf9db-c01f-43d1-a184-b2fa154a8534" /> | <img width="240" alt="Search 2" src="https://github.com/user-attachments/assets/b95cd476-748e-4320-89f9-be93cc4afcfc" /> | <img width="240" alt="Search 3" src="https://github.com/user-attachments/assets/fcb32d49-2d55-4a73-886a-e068777a47df" /> |
 
 
 
