@@ -35,5 +35,5 @@ A modern, responsive music streaming app UI inspired by **Spotify**, built using
 ### 🎧 Music Player
 | Now Playing Screen |
 | :---: |
-<img width="372" height="841" alt="Screenshot 2026-09-20 145318" src="https://github.com/user-attachments/assets/659d369e-b174-4863-b1d4-e24aeb64ef95" />
+<img width="240" alt="Screenshot 2026-09-20 145318" src="https://github.com/user-attachments/assets/659d369e-b174-4863-b1d4-e24aeb64ef95" />
 
